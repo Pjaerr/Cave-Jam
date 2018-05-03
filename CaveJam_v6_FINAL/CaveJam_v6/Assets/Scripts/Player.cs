@@ -184,6 +184,34 @@ public class Player : MonoBehaviour
 
     void OnCollisionStay(Collision col)
     {
+        if (col.gameObject.tag == "Enemy")
+        {
+            if (canBeAttacked)
+            {
+                StartCoroutine(resetInvincibility());
+
+
+
+                int randomIndex = GameManager.singleton.rand.Next(0, GameManager.singleton.gruntSounds.Length);
+
+                GameManager.singleton.gruntSounds[randomIndex].Play();
+
+
+                col.gameObject.GetComponent<Animator>().SetBool("Attack", true);
+
+                if (playerLives <= 0)
+                {
+                    StartCoroutine(playerDeath());
+                }
+
+                col.gameObject.GetComponent<Enemy>().shouldFollowPlayer = false;
+            }
+            else
+            {
+                Debug.Log("Player is Invincible");
+            }
+        }
+
         if (col.gameObject.tag == "Ammo")
         {
 
@@ -194,31 +222,24 @@ public class Player : MonoBehaviour
                 {
                     ammo++;
                 }
-
             }
         }
     }
 
+
+    IEnumerator resetInvincibility()
+    {
+        canBeAttacked = false;
+        playerLives--;
+        yield return new WaitForSeconds(2.0f);
+        canBeAttacked = true;
+    }
+
+    private bool canBeAttacked = true;
+
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "Enemy")
-        {
-            playerLives--;
 
-            int randomIndex = GameManager.singleton.rand.Next(0, GameManager.singleton.gruntSounds.Length);
-
-            GameManager.singleton.gruntSounds[randomIndex].Play();
-
-
-            col.gameObject.GetComponent<Animator>().SetBool("Attack", true);
-
-            if (playerLives <= 0)
-            {
-                StartCoroutine(playerDeath());
-            }
-
-            col.gameObject.GetComponent<Enemy>().shouldFollowPlayer = false;
-        }
     }
 
     IEnumerator playerDeath()

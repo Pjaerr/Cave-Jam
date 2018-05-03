@@ -45,6 +45,9 @@ public class GameManager : MonoBehaviour
     public AudioSource robotDeathSound;
 
 
+    [SerializeField] private Text timeText;
+
+
     //UI
     [SerializeField] private GameObject popupUIObject;
 
@@ -81,9 +84,19 @@ public class GameManager : MonoBehaviour
                 timeLimitSeconds = 60;
             }
 
+            timeText.text = toTimeString(timeLimitMinutes) + ":" + toTimeString(timeLimitSeconds);
+        }
+    }
 
-
-            Debug.Log(timeLimitMinutes + ":" + timeLimitSeconds);
+    string toTimeString(int num)
+    {
+        if (num < 10)
+        {
+            return "0" + num.ToString();
+        }
+        else
+        {
+            return num.ToString();
         }
     }
 

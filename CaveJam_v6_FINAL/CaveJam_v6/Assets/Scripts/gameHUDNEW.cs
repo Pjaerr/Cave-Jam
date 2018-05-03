@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class gameHUDNEW : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class gameHUDNEW : MonoBehaviour
     public UnityEngine.UI.Text rockText;
     public GameObject[] healthHearts;
 
+
     // Use this for initialization
     void Start()
     {
@@ -22,6 +24,7 @@ public class gameHUDNEW : MonoBehaviour
     void FixedUpdate()
     {
         UpdateHUD();
+
     }
 
     public void UpdateHUD()
@@ -38,10 +41,6 @@ public class gameHUDNEW : MonoBehaviour
             }
 
             rockText.text = "x" + playerScript.ammo.ToString();
-            // Debug.Log("HUD Updated");
         }
-
-
-
     }
 }

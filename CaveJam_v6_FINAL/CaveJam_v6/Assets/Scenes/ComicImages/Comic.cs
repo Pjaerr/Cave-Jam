@@ -8,37 +8,29 @@ public class Comic : MonoBehaviour
     public GameObject[] images;
     private int index = 0;
 
-    void Update()
+    void Start()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        StartCoroutine(switchImage());
+    }
+
+
+    IEnumerator switchImage()
+    {
+        yield return new WaitForSeconds(5.0f);
+
+
+        if (index < images.Length - 1)
         {
-
-
-            if (index > 0)
-            {
-                images[index].SetActive(false);
-                index--;
-            }
-
-            images[index].SetActive(true);
-
+            images[index].SetActive(false);
+            index++;
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else
         {
-
-
-            if (index < images.Length - 1)
-            {
-                images[index].SetActive(false);
-                index++;
-            }
-            else
-            {
-                SceneManager.LoadScene("main");
-            }
-
-            images[index].SetActive(true);
+            SceneManager.LoadScene("main");
         }
+
+        images[index].SetActive(true);
+        StartCoroutine(switchImage());
     }
 
 }

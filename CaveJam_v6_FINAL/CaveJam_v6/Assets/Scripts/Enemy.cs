@@ -105,7 +105,7 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        Debug.Log(col.gameObject.name);
+
     }
 
     void OnTriggerEnter(Collider col)

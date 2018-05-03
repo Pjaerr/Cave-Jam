@@ -28,7 +28,10 @@ public class menuScript : MonoBehaviour
 
     public void StartGame() //Start the game for the first time
     {
-        Debug.Log("Game Starting");
+        int randomIndex = GameManager.singleton.rand.Next(0, GameManager.singleton.belchSounds.Length);
+
+        GameManager.singleton.belchSounds[randomIndex].Play();
+
         this.enabled = true;
         Time.timeScale = 1;
 
@@ -62,10 +65,18 @@ public class menuScript : MonoBehaviour
     void PauseGame(bool bPaused)
     { //The function that will disable the game while it is paused
 
+
+
+        int randomIndex = GameManager.singleton.rand.Next(0, GameManager.singleton.belchSounds.Length);
+
+        GameManager.singleton.belchSounds[randomIndex].Play();
+
         if (bPaused == true)
         {
             Menu.SetActive(true);
             Time.timeScale = 0;
+
+
         }
         else
         {
